@@ -6,9 +6,6 @@ import java.sql.SQLException;
 
 import chapter6.exception.SQLRuntimeException;
 
-/**
- * DB(コネクション関係)のユーティリティー
- */
 public class DBUtil {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -26,8 +23,6 @@ public class DBUtil {
 	}
 
 	/**
-	 * コネクションを取得します。
-	 *
 	 * @return
 	 */
 	public static Connection getConnection() {
@@ -42,8 +37,6 @@ public class DBUtil {
 	}
 
 	/**
-	 * コミットします。
-	 *
 	 * @param connection
 	 */
 	public static void commit(Connection connection) {
@@ -56,8 +49,6 @@ public class DBUtil {
 	}
 
 	/**
-	 * ロールバックします。
-	 *
 	 * @param connection
 	 */
 	public static void rollback(Connection connection) {

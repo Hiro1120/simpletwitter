@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import chapter6.beans.User;
 import chapter6.exception.NoRowsUpdatedRuntimeException;
 import chapter6.exception.SQLRuntimeException;
@@ -29,13 +31,13 @@ public class UserDao {
 			sql.append("    created_date, ");
 			sql.append("    updated_date ");
 			sql.append(") VALUES ( ");
-			sql.append("    ?, "); // account
-			sql.append("    ?, "); // name
-			sql.append("    ?, "); // email
-			sql.append("    ?, "); // password
-			sql.append("    ?, "); // description
-			sql.append("    CURRENT_TIMESTAMP, "); // created_date
-			sql.append("    CURRENT_TIMESTAMP "); // updated_date
+			sql.append("    ?, ");
+			sql.append("    ?, ");
+			sql.append("    ?, ");
+			sql.append("    ?, ");
+			sql.append("    ?, ");
+			sql.append("    CURRENT_TIMESTAMP, ");
+			sql.append("    CURRENT_TIMESTAMP ");
 			sql.append(")");
 
 			ps = connection.prepareStatement(sql.toString());
@@ -151,18 +153,15 @@ public class UserDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			if ((user.getPassword().isEmpty())) {
+			ps.setString(1, user.getAccount());
+			ps.setString(2, user.getName());
+			ps.setString(3, user.getEmail());
 
-				ps.setString(1, user.getAccount());
-				ps.setString(2, user.getName());
-				ps.setString(3, user.getEmail());
+			String password = user.getPassword();
+			if (StringUtils.isBlank(password)) {
 				ps.setString(4, user.getDescription());
 				ps.setInt(5, user.getId());
-
 			} else {
-				ps.setString(1, user.getAccount());
-				ps.setString(2, user.getName());
-				ps.setString(3, user.getEmail());
 				ps.setString(4, user.getPassword());
 				ps.setString(5, user.getDescription());
 				ps.setInt(6, user.getId());

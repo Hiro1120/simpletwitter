@@ -1,6 +1,6 @@
 package chapter6.dao;
 
-//import static chapter6.utils.CloseableUtil.*;
+import static chapter6.utils.CloseableUtil.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,7 +40,7 @@ public class UserMessageDao {
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
 		} finally {
-			//			            close(ps);
+			close(ps);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class UserMessageDao {
 			}
 			return messages;
 		} finally {
-			//            close(rs);
+			close(rs);
 		}
 	}
 }

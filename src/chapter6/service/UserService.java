@@ -5,6 +5,8 @@ import static chapter6.utils.DBUtil.*;
 
 import java.sql.Connection;
 
+import org.apache.commons.lang.StringUtils;
+
 import chapter6.beans.User;
 import chapter6.dao.UserDao;
 import chapter6.utils.CipherUtil;
@@ -15,7 +17,7 @@ public class UserService {
 
 		Connection connection = null;
 		try {
-			// パスワード暗号化
+
 			String encPassword = CipherUtil.encrypt(user.getPassword());
 			user.setPassword(encPassword);
 
@@ -37,7 +39,7 @@ public class UserService {
 
 		Connection connection = null;
 		try {
-			// パスワード暗号化
+
 			String encPassword = CipherUtil.encrypt(password);
 
 			connection = getConnection();
@@ -80,9 +82,9 @@ public class UserService {
 
 		Connection connection = null;
 		try {
-			if (!user.getPassword().isEmpty()) {
-				// パスワード暗号化
-				String encPassword = CipherUtil.encrypt(user.getPassword());
+			String password = user.getPassword();
+			if (!StringUtils.isBlank(password)) {
+				String encPassword = CipherUtil.encrypt(password);
 				user.setPassword(encPassword);
 			}
 			connection = getConnection();

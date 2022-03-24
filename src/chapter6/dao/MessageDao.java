@@ -1,6 +1,6 @@
 package chapter6.dao;
 
-//import static chapter6.utils.CloseableUtil.*;
+import static chapter6.utils.CloseableUtil.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,10 +22,10 @@ public class MessageDao {
 			sql.append("    created_date, ");
 			sql.append("    updated_date ");
 			sql.append(") VALUES ( ");
-			sql.append("    ?, "); // user_id
-			sql.append("    ?, "); // text
-			sql.append("    CURRENT_TIMESTAMP, "); // created_date
-			sql.append("    CURRENT_TIMESTAMP "); // updated_date
+			sql.append("    ?, ");
+			sql.append("    ?, ");
+			sql.append("    CURRENT_TIMESTAMP, ");
+			sql.append("    CURRENT_TIMESTAMP ");
 			sql.append(")");
 
 			ps = connection.prepareStatement(sql.toString());
@@ -37,7 +37,7 @@ public class MessageDao {
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
 		} finally {
-			//			close(ps);
+			close(ps);
 		}
 	}
 }

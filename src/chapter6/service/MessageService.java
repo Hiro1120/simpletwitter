@@ -1,6 +1,6 @@
 package chapter6.service;
 
-//import static chapter6.utils.CloseableUtil.*;
+import static chapter6.utils.CloseableUtil.*;
 import static chapter6.utils.DBUtil.*;
 
 import java.sql.Connection;
@@ -27,7 +27,7 @@ public class MessageService {
 			rollback(connection);
 			throw e;
 		} finally {
-			//            close(connection);
+			close(connection);
 		}
 	}
 
@@ -48,7 +48,7 @@ public class MessageService {
 			rollback(connection);
 			throw e;
 		} finally {
-			//            close(connection);
+			close(connection);
 		}
 	}
 }

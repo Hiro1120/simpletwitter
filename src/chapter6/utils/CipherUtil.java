@@ -5,17 +5,12 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.codec.binary.Base64;
 
-/**
- * 暗号化ユーティリティー
- */
 public class CipherUtil {
 
 	/**
-	 * SHA-256で暗号化し、バイト配列をBase64エンコーディングします。
+	 * @param
 	 *
-	 * @param target 暗号化対象の文字列
-	 *
-	 * @return 暗号化された文字列
+	 * @return
 	 */
 	public static String encrypt(String target) {
 
