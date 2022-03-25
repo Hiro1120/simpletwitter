@@ -139,12 +139,13 @@ public class UserDao {
 
 		PreparedStatement ps = null;
 		try {
+			String password = user.getPassword();
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE users SET ");
 			sql.append("    account = ?, ");
 			sql.append("    name = ?, ");
 			sql.append("    email = ?, ");
-			if (user.getPassword() != "") {
+			if (!StringUtils.isBlank(password)) {
 				sql.append("    password = ?, ");
 			}
 			sql.append("    description = ?, ");
@@ -157,7 +158,6 @@ public class UserDao {
 			ps.setString(2, user.getName());
 			ps.setString(3, user.getEmail());
 
-			String password = user.getPassword();
 			if (StringUtils.isBlank(password)) {
 				ps.setString(4, user.getDescription());
 				ps.setInt(5, user.getId());
