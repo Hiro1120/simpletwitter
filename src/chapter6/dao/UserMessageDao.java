@@ -30,7 +30,7 @@ public class UserMessageDao {
 			sql.append("INNER JOIN users ");
 			sql.append("ON messages.user_id = users.id ");
 			if (idNum != null) {
-				sql.append("WHERE messages.id = ? ");
+				sql.append("WHERE messages.user_id = ? ");
 			}
 			sql.append("ORDER BY created_date DESC limit " + num);
 
