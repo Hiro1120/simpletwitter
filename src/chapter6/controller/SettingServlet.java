@@ -61,6 +61,7 @@ public class SettingServlet extends HttpServlet {
 
 	private User getUser(HttpServletRequest request) throws IOException, ServletException {
 
+		//設定画面で更新された後の情報がsetされる
 		User user = new User();
 		user.setId(Integer.parseInt(request.getParameter("id")));
 		user.setName(request.getParameter("name"));
@@ -77,10 +78,12 @@ public class SettingServlet extends HttpServlet {
 		String account = user.getAccount();
 		String email = user.getEmail();
 
-		//		User accountData = new UserService().select(account);
-		//		if (accountData = account) {
-		//			errorMessages.add("ユーザーが重複しています");
-		//		}
+		//accountData：すでに登録されているユーザー
+		//account：設定画面で入力されたアカウント
+		User accountData = new UserService().select(account);
+		if (accountData != null && account != null) {
+			errorMessages.add("ユーザーが重複しています");
+		}
 
 		if (!StringUtils.isBlank(name) && (20 < name.length())) {
 			errorMessages.add("名前は20文字以下で入力してください");
