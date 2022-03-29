@@ -77,12 +77,14 @@ public class SettingServlet extends HttpServlet {
 		String name = user.getName();
 		String account = user.getAccount();
 		String email = user.getEmail();
+		int inputId = user.getId();
 
-		//accountData：すでに登録されているユーザー
-		//account：設定画面で入力されたアカウント
 		User accountData = new UserService().select(account);
-		if (accountData != null && account != null) {
-			errorMessages.add("ユーザーが重複しています");
+		int accountDataId = accountData.getId();
+		if (accountData != null) {
+			if (inputId != accountDataId) {
+				errorMessages.add("すでに存在するアカウントです");
+			}
 		}
 
 		if (!StringUtils.isBlank(name) && (20 < name.length())) {
