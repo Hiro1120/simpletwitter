@@ -59,4 +59,22 @@ public class MessageService {
 			close(connection);
 		}
 	}
+
+	public void delete(Message deleteMessage) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			new MessageDao().insert(connection, deleteMessage);
+			commit(connection);
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
 }

@@ -68,14 +68,20 @@
 			            <div class="account-name">
 			                <span class="account">
 			                	<a href="./?user_id=<c:out value="${message.userId}"/> ">
-			                		<c:out value="${message.account}" /></a>
-			                	</span>
-			                <span class="name"><c:out value="${message.name}" /></span>
-			            </div>
-			            <div class="text"><c:out value="${message.text}" /></div>
-			            <div class="date"><fmt:formatDate value="${message.createdDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-			        </div>
+			                			<c:out value="${message.account}" /></a>
+			                			</span>
+			               	 		<span class="name"><c:out value="${message.name}" /></span>
+			           		 		</div>
+			            		<div class="text"><c:out value="${message.text}" /></div>
+			            	<div class="date"><fmt:formatDate value="${message.createdDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+			       			</div>
 			    </c:forEach>
+			</div>
+
+			<div class="form-delete">
+				<form action="delete" method="post">
+			       	<input type="submit" value="削除" id="message_id" type="hidden"/>
+			    </form>>
 			</div>
 
             <div class="copyright">©︎ 2022 H.NAKAYAMA</div>
