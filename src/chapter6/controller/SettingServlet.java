@@ -80,10 +80,8 @@ public class SettingServlet extends HttpServlet {
 
 		User accountData = new UserService().select(account);
 		int accountDataId = accountData.getId();
-		if (accountData != null) {
-			if (inputId != accountDataId) {
-				errorMessages.add("すでに存在するアカウントです");
-			}
+		if ((accountData != null) && (inputId != accountDataId)) {
+			errorMessages.add("すでに存在するアカウントです");
 		}
 
 		if (!StringUtils.isBlank(name) && (20 < name.length())) {
