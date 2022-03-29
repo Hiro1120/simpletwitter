@@ -61,7 +61,6 @@ public class SettingServlet extends HttpServlet {
 
 	private User getUser(HttpServletRequest request) throws IOException, ServletException {
 
-		//設定画面で更新された後の情報がsetされる
 		User user = new User();
 		user.setId(Integer.parseInt(request.getParameter("id")));
 		user.setName(request.getParameter("name"));
