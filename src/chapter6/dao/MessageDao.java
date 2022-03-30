@@ -41,19 +41,19 @@ public class MessageDao {
 		}
 	}
 
-	public void delete(Connection connection, Message deleteMessage) {
+	public void delete(Connection connection, int deleteMessageId) {
 
 		PreparedStatement ps = null;
 		try {
 			StringBuilder deleteSql = new StringBuilder();
 
 			deleteSql.append("DELETE FROM messages  ( ");
-			deleteSql.append("    WHERE text = ? ");
+			deleteSql.append("    WHERE id = ? ");
 			deleteSql.append(")");
 
 			ps = connection.prepareStatement(deleteSql.toString());
 
-			ps.setString(1, deleteMessage.getText());
+			ps.setInt(1, deleteMessageId);
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -62,4 +62,5 @@ public class MessageDao {
 			close(ps);
 		}
 	}
+
 }

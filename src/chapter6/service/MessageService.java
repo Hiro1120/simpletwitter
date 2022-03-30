@@ -60,12 +60,12 @@ public class MessageService {
 		}
 	}
 
-	public void delete(Message deleteMessage) {
+	public void delete(int deleteMessageId) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new MessageDao().insert(connection, deleteMessage);
+			new MessageDao().delete(connection, deleteMessageId);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);
