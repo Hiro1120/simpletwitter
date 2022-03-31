@@ -60,12 +60,48 @@ public class MessageService {
 		}
 	}
 
-	public void delete(int deleteMessageId) {
+	public User delete(int deleteMessageId) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new MessageDao().delete(connection, deleteMessageId);
+			User user = new MessageDao().delete(connection, deleteMessageId);
+			commit(connection);
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+	public void edit(int editMessageId) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			new MessageDao().edit(connection, editMessageId);
+			commit(connection);
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+	public void editUpdate(Message message) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			new MessageDao().editUpdate(connection, message);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);
