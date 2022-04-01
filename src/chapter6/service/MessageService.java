@@ -60,12 +60,12 @@ public class MessageService {
 		}
 	}
 
-	public User delete(int deleteMessageId) {
+	public void delete(int deleteMessageId) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			User user = new MessageDao().delete(connection, deleteMessageId);
+			new MessageDao().delete(connection, deleteMessageId);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);
@@ -78,13 +78,14 @@ public class MessageService {
 		}
 	}
 
-	public void edit(int editMessageId) {
+	public Message edit(int editMessageId) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			new MessageDao().edit(connection, editMessageId);
+			Message user = new MessageDao().edit(connection, editMessageId);
 			commit(connection);
+			return user;
 		} catch (RuntimeException e) {
 			rollback(connection);
 			throw e;

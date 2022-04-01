@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chapter6.beans.Message;
-import chapter6.beans.User;
 import chapter6.exception.SQLRuntimeException;
 
 public class MessageDao {
@@ -66,47 +65,44 @@ public class MessageDao {
 		}
 	}
 
-	private List<User> toUsers(ResultSet rs) throws SQLException {
+	private List<Message> toMessages(ResultSet rs) throws SQLException {
 
-		List<User> users = new ArrayList<User>();
+		List<Message> messages = new ArrayList<Message>();
 		try {
 			while (rs.next()) {
-				User user = new User();
-				user.setId(rs.getInt("id"));
-				user.setAccount(rs.getString("account"));
-				user.setName(rs.getString("name"));
-				user.setEmail(rs.getString("email"));
-				user.setPassword(rs.getString("password"));
-				user.setDescription(rs.getString("description"));
-				user.setCreatedDate(rs.getTimestamp("created_date"));
-				user.setUpdatedDate(rs.getTimestamp("updated_date"));
+				Message message = new Message();
+				message.setId(rs.getInt("id"));
+				message.setUserId(rs.getInt("user_id"));
+				message.setText(rs.getString("text"));
+				message.setCreatedDate(rs.getTimestamp("created_date"));
+				message.setUpdatedDate(rs.getTimestamp("updated_date"));
 
-				users.add(user);
+				messages.add(message);
 			}
-			return users;
+			return messages;
 		} finally {
 			close(rs);
 		}
 	}
 
-	public User edit(Connection connection, int id) {
+	public Message edit(Connection connection, int editMessageId) {
 
 		PreparedStatement ps = null;
 		try {
-			String sql = "SELECT * FROM users WHERE id = ?";
+			String sql = "SELECT * FROM messages WHERE id = ?";
 
 			ps = connection.prepareStatement(sql);
 
-			ps.setInt(1, id);
+			ps.setInt(1, editMessageId);
 
 			ResultSet rs = ps.executeQuery();
-			List<User> users = toUsers(rs);
-			if (users.isEmpty()) {
+			List<Message> messages = toMessages(rs);
+			if (messages.isEmpty()) {
 				return null;
-			} else if (2 <= users.size()) {
+			} else if (2 <= messages.size()) {
 				throw new IllegalStateException("ユーザーが重複しています");
 			} else {
-				return users.get(0);
+				return messages.get(0);
 			}
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
@@ -119,14 +115,17 @@ public class MessageDao {
 
 		PreparedStatement ps = null;
 		try {
-			StringBuilder deleteSql = new StringBuilder();
+			StringBuilder updateSql = new StringBuilder();
 
-			deleteSql.append("UPDATE FROM messages ");
-			deleteSql.append("WHERE id = ? ");
+			updateSql.append("UPDATE messages SET ");
+			updateSql.append("    text= ?, ");
+			updateSql.append("    updated_date = CURRENT_TIMESTAMP ");
+			updateSql.append("WHERE id = ?");
 
-			ps = connection.prepareStatement(deleteSql.toString());
+			ps = connection.prepareStatement(updateSql.toString());
 
-			ps.set(1, message);
+			ps.setString(1, message.getText());
+			ps.setInt(2, message.getId());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {

@@ -77,9 +77,9 @@
 			       			</div>
 
 				      	<c:if test="${message.userId == loginUser.id}">
-							<form action="edit" method="post">
+							<form action="edit" method="get">
 								<input name="id" value="${message.id}" id="id" type="hidden"/>
-				       			<input type="submit" value="編集" id="message_id" />
+				       			<input type="submit" value="編集" id="message_id"/>
 				    		</form>
 			    		</c:if>
 
