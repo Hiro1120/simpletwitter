@@ -50,7 +50,6 @@
 			       				<input name="id" value="${message.id}" id="id" type="hidden"/>
 				            	<textarea name="text" cols="100" rows="5" id="text"><c:out value="${message.text}" /></textarea>
 			            		<input type="submit" value="更新">（140文字まで）
-			            		<input type="hidden" value="${message.updatedDate}" name="updatedDate">
 			        		</form>
 					</div>
 

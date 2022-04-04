@@ -85,9 +85,7 @@ public class EditServlet extends HttpServlet {
 	}
 
 	private boolean isCheck(String messageId, List<String> errorMessages) {
-		if (!(messageId.matches("^[0-9]*$"))) {
-			errorMessages.add("不正なパラメータが入力されました");
-		} else if (StringUtils.isBlank(messageId)) {
+		if (!(messageId.matches("^[0-9]*$")) || StringUtils.isBlank(messageId)) {
 			errorMessages.add("不正なパラメータが入力されました");
 		}
 		if (errorMessages.size() != 0) {
