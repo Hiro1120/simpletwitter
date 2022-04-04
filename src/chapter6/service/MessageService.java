@@ -78,12 +78,12 @@ public class MessageService {
 		}
 	}
 
-	public Message edit(int editMessageId) {
+	public Message select(int editMessageId) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			Message user = new MessageDao().edit(connection, editMessageId);
+			Message user = new MessageDao().select(connection, editMessageId);
 			commit(connection);
 			return user;
 		} catch (RuntimeException e) {

@@ -85,7 +85,7 @@ public class MessageDao {
 		}
 	}
 
-	public Message edit(Connection connection, int editMessageId) {
+	public Message select(Connection connection, int editMessageId) {
 
 		PreparedStatement ps = null;
 		try {
