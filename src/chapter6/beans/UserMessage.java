@@ -59,4 +59,5 @@ public class UserMessage implements Serializable {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
 }
