@@ -30,16 +30,10 @@ public class UserCommentDao {
 			sql.append("FROM comments ");
 			sql.append("INNER JOIN users ");
 			sql.append("ON comments.user_id = users.id ");
-			//			if (idNum != null) {
-			//				sql.append("WHERE messages.user_id = ? ");
-			//			}
+
 			sql.append("ORDER BY created_date DESC limit " + num);
 
 			ps = connection.prepareStatement(sql.toString());
-
-			//			if (idNum != null) {
-			//				ps.setInt(1, idNum);
-			//			}
 
 			ResultSet rs = ps.executeQuery();
 			List<Comment> comments = toUserComments(rs);

@@ -48,7 +48,6 @@
 					<div class="form-area">
 			       			<form action="edit" method="Post">
 			       				<input name="id" value="${message.id}" id="id" type="hidden"/>
-			       				<div class="date"><fmt:formatDate value="${message.updatedDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 				            	<textarea name="text" cols="100" rows="5" id="text"><c:out value="${message.text}" /></textarea>
 			            		<input type="submit" value="更新">（140文字まで）
 			        		</form>
