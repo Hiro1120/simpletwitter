@@ -24,14 +24,11 @@ public class CommentServlet extends HttpServlet {
 
 		String text = request.getParameter("text");
 		String id = request.getParameter("id");
-		//		String messageId = request.getParameter("commentId");
 
 		Comment reply = new Comment();
 		reply.setText(text);
 		int replyId = Integer.valueOf(id);
 		reply.setId(replyId);
-		//		int replyMessageId = Integer.valueOf(messageId);
-		//		reply.setMessageId(replyMessageId);
 
 		User user = (User) session.getAttribute("loginUser");
 		reply.setUserId(user.getId());
