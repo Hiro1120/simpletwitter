@@ -51,13 +51,22 @@
     		<c:remove var="errorMessages" scope="session" />
 			</c:if>
 
+			<div class="calendar">
+				<c:if test="${ isShowMessageForm }">
+					<form action="index.jsp" method="get" >
+	                	日付：<input name="start" type="date" id="start" value="${start}" />～<input name="end" type="date" id="end" value="${end}" />
+	                	<input type="submit" value="絞り込み" class="button1">
+	                </form>
+	             </c:if>
+			</div>
+
 			<div class="form-area">
 			    <c:if test="${ isShowMessageForm }">
 			        <form action="message" method="post">
 			            いま、どうしてる？<br />
 			            <textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
 			            <br />
-			            <input type="submit" value="つぶやく">（140文字まで）
+			            <input type="submit" value="つぶやく" class="button">（140文字まで）
 			        </form>
 			    </c:if>
 			</div>
@@ -79,7 +88,7 @@
 				      	<c:if test="${message.userId == loginUser.id}">
 							<form action="edit" method="get">
 								<input name="id" value="${message.id}" id="id" type="hidden"/>
-				       			<input type="submit" value="編集" id="message_id"/>
+				       			<input type="submit" value="編集" id="message_id" class="button1"/>
 				    		</form>
 			    		</c:if>
 
@@ -87,7 +96,7 @@
 				      	<c:if test="${message.userId == loginUser.id}">
 							<form action="deleteMessage" method="post">
 								<input name="id" value="${message.id}" id="id" type="hidden"/>
-				       			<input type="submit" value="削除" id="message_id" />
+				       			<input type="submit" value="削除" id="message_id" class="button1"/>
 				    		</form>
 			    		</c:if>
 
@@ -97,7 +106,7 @@
 							        	<input name="id" value="${message.id}" id="id" type="hidden"/>
 							            <textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
 							            <br />
-							            <input type="submit" value="返信">（140文字まで）
+							            <input type="submit" value="返信" class="button1">（140文字まで）
 							        </form>
 							    </c:if>
 							</div>

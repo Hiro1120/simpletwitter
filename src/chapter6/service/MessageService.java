@@ -4,6 +4,8 @@ import static chapter6.utils.CloseableUtil.*;
 import static chapter6.utils.DBUtil.*;
 
 import java.sql.Connection;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -33,7 +35,7 @@ public class MessageService {
 		}
 	}
 
-	public List<UserMessage> select(String userId) {
+	public List<UserMessage> select(String userId, String startDay, String endDay) {
 		final int LIMIT_NUM = 1000;
 
 		Connection connection = null;
@@ -45,7 +47,26 @@ public class MessageService {
 				id = Integer.parseInt(userId);
 			}
 
-			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);
+			Date dt = new Date(); //現在日時の取得
+			DateFormat df = DateFormat.getDateInstance(); //DateFormatの取得
+			String startDefaultDate = "2020/01/01 00:00:00";
+			String endDefaultDate = df.format(dt); //formatメソッドを用いて文字列に変換(現在日時）
+			String startDate;
+			String endDate;
+
+			if (startDay != null) {
+				startDate = startDay + "00:00:00";
+			} else {
+				startDate = startDefaultDate;
+			}
+
+			if (endDay != null) {
+				endDate = endDay + "23:59:59";
+			} else {
+				endDate = endDefaultDate;
+			}
+
+			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, startDate, endDate);
 			commit(connection);
 
 			return messages;
@@ -114,4 +135,5 @@ public class MessageService {
 			close(connection);
 		}
 	}
+
 }

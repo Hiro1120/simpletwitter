@@ -14,7 +14,7 @@ import chapter6.exception.SQLRuntimeException;
 
 public class UserMessageDao {
 
-	public List<UserMessage> select(Connection connection, Integer idNum, int num) {
+	public List<UserMessage> select(Connection connection, Integer idNum, int num, String startDate, String endDate) {
 
 		PreparedStatement ps = null;
 		try {
@@ -31,6 +31,8 @@ public class UserMessageDao {
 			sql.append("ON messages.user_id = users.id ");
 			if (idNum != null) {
 				sql.append("WHERE messages.user_id = ? ");
+				sql.append("AND  start <= ? ");
+				sql.append("AND  end >= ? ");
 			}
 			sql.append("ORDER BY created_date DESC limit " + num);
 
@@ -38,6 +40,8 @@ public class UserMessageDao {
 
 			if (idNum != null) {
 				ps.setInt(1, idNum);
+				ps.setString(2, startDate);
+				ps.setString(3, endDate);
 			}
 
 			ResultSet rs = ps.executeQuery();

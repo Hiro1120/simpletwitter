@@ -40,7 +40,7 @@
                 <label for="description">説明</label>
                 <textarea name="description" cols="35" rows="5" id="description"><c:out value="${user.description}" /></textarea> <br />
 
-                <input type="submit" value="更新" /> <br />
+                <input type="submit" value="更新" class="button1"/> <br />
                 <a href="./">戻る</a>
             </form>
 
