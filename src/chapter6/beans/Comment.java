@@ -9,8 +9,6 @@ public class Comment implements Serializable {
 	private int userId;
 	private String text;
 	private int messageId;
-	private String account;
-	private String name;
 	private Date createdDate;
 	private Date updatedDate;
 
@@ -44,22 +42,6 @@ public class Comment implements Serializable {
 
 	public void setMessageId(int messageId) {
 		this.messageId = messageId;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Date getCreatedDate() {
