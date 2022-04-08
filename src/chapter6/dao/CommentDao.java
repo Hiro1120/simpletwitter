@@ -11,7 +11,7 @@ import chapter6.exception.SQLRuntimeException;
 
 public class CommentDao {
 
-	public void insert(Connection connection, Comment reply) {
+	public void insert(Connection connection, Comment comment) {
 
 		PreparedStatement ps = null;
 		try {
@@ -32,9 +32,9 @@ public class CommentDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setString(1, reply.getText());
-			ps.setInt(2, reply.getUserId());
-			ps.setInt(3, reply.getId());
+			ps.setString(1, comment.getText());
+			ps.setInt(2, comment.getUserId());
+			ps.setInt(3, comment.getId());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {

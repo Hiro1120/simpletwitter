@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import chapter6.beans.Comment;
 import chapter6.beans.User;
 import chapter6.beans.UserMessage;
 import chapter6.service.CommentService;
@@ -32,7 +31,7 @@ public class TopServlet extends HttpServlet {
 		String endDate = request.getParameter("end");
 
 		List<UserMessage> messages = new MessageService().select(userId, startDate, endDate);
-		List<Comment> comments = new CommentService().select(userId);
+		List<UserMessage> comments = new CommentService().select();
 
 		request.setAttribute("start", startDate);
 		request.setAttribute("end", endDate);

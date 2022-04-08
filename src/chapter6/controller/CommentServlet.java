@@ -36,15 +36,15 @@ public class CommentServlet extends HttpServlet {
 			return;
 		}
 
-		Comment reply = new Comment();
-		reply.setText(text);
+		Comment comment = new Comment();
+		comment.setText(text);
 		int replyId = Integer.valueOf(id);
-		reply.setId(replyId);
+		comment.setId(replyId);
 
 		User user = (User) session.getAttribute("loginUser");
-		reply.setUserId(user.getId());
+		comment.setUserId(user.getId());
 
-		new CommentService().insert(reply);
+		new CommentService().insert(comment);
 
 		response.sendRedirect("./");
 	}
