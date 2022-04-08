@@ -32,6 +32,14 @@
 			    </c:if>
             </div>
 
+			<div class="calendar">
+					<form action="index.jsp" method="get" >
+	                	日付：
+	                	<input type="date" name="start" value="${start}" />～<input type="date" name="end" value="${end}" />
+	                	<input type="submit" value="絞り込み" class="button1">
+	                </form>
+			</div>
+
             <c:if test="${ not empty loginUser }">
 			    <div class="profile">
 			        <div class="name"><h2><c:out value="${loginUser.name}" /></h2></div>
@@ -50,15 +58,6 @@
 			    </div>
     		<c:remove var="errorMessages" scope="session" />
 			</c:if>
-
-			<div class="calendar">
-				<c:if test="${ isShowMessageForm }">
-					<form action="index.jsp" method="get" >
-	                	日付：<input name="start" type="date" id="start" value="${start}" />～<input name="end" type="date" id="end" value="${end}" />
-	                	<input type="submit" value="絞り込み" class="button1">
-	                </form>
-	             </c:if>
-			</div>
 
 			<div class="form-area">
 			    <c:if test="${ isShowMessageForm }">

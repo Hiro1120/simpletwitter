@@ -4,7 +4,7 @@ import static chapter6.utils.CloseableUtil.*;
 import static chapter6.utils.DBUtil.*;
 
 import java.sql.Connection;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class MessageService {
 		}
 	}
 
-	public List<UserMessage> select(String userId, String startDay, String endDay) {
+	public List<UserMessage> select(String userId, String startDate, String endDate) {
 		final int LIMIT_NUM = 1000;
 
 		Connection connection = null;
@@ -47,26 +47,24 @@ public class MessageService {
 				id = Integer.parseInt(userId);
 			}
 
-			Date dt = new Date(); //現在日時の取得
-			DateFormat df = DateFormat.getDateInstance(); //DateFormatの取得
-			String startDefaultDate = "2020/01/01 00:00:00";
-			String endDefaultDate = df.format(dt); //formatメソッドを用いて文字列に変換(現在日時）
-			String startDate;
-			String endDate;
+			String startDay = null;
+			String endDay = null;
 
-			if (startDay != null) {
-				startDate = startDay + "00:00:00";
+			if (!StringUtils.isEmpty(startDate)) {
+				startDay = startDate + " " + "00:00:00";
 			} else {
-				startDate = startDefaultDate;
+				startDay = "2022-01-01" + " " + "00:00:00";
 			}
 
-			if (endDay != null) {
-				endDate = endDay + "23:59:59";
+			if (!StringUtils.isEmpty(endDate)) {
+				endDay = endDate + " " + "23:59:59";
 			} else {
-				endDate = endDefaultDate;
+				Date dt = new Date();
+				SimpleDateFormat endDefaultDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				endDay = endDefaultDate.format(dt);
 			}
 
-			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, startDate, endDate);
+			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, startDay, endDay);
 			commit(connection);
 
 			return messages;
