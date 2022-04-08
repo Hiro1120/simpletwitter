@@ -9,12 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import chapter6.beans.UserMessage;
+import chapter6.beans.UserComment;
 import chapter6.exception.SQLRuntimeException;
 
 public class UserCommentDao {
 
-	public List<UserMessage> select(Connection connection, int num) {
+	public List<UserComment> select(Connection connection, int num) {
 
 		PreparedStatement ps = null;
 		try {
@@ -36,7 +36,7 @@ public class UserCommentDao {
 			ps = connection.prepareStatement(sql.toString());
 
 			ResultSet rs = ps.executeQuery();
-			List<UserMessage> comments = toUserMessages(rs);
+			List<UserComment> comments = toUserComments(rs);
 			return comments;
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
@@ -45,12 +45,12 @@ public class UserCommentDao {
 		}
 	}
 
-	private List<UserMessage> toUserMessages(ResultSet rs) throws SQLException {
+	private List<UserComment> toUserComments(ResultSet rs) throws SQLException {
 
-		List<UserMessage> comments = new ArrayList<UserMessage>();
+		List<UserComment> comments = new ArrayList<UserComment>();
 		try {
 			while (rs.next()) {
-				UserMessage comment = new UserMessage();
+				UserComment comment = new UserComment();
 				comment.setId(rs.getInt("id"));
 				comment.setText(rs.getString("text"));
 				comment.setMessageId(rs.getInt("message_id"));
