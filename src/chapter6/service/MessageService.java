@@ -47,24 +47,21 @@ public class MessageService {
 				id = Integer.parseInt(userId);
 			}
 
-			String startDay = null;
-			String endDay = null;
-
 			if (!StringUtils.isEmpty(startDate)) {
-				startDay = startDate + " " + "00:00:00";
+				startDate += " " + "00:00:00";
 			} else {
-				startDay = "2022-01-01" + " " + "00:00:00";
+				startDate = "2022-01-01" + " " + "00:00:00";
 			}
 
 			if (!StringUtils.isEmpty(endDate)) {
-				endDay = endDate + " " + "23:59:59";
+				endDate += " " + "23:59:59";
 			} else {
 				Date dt = new Date();
 				SimpleDateFormat endDefaultDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				endDay = endDefaultDate.format(dt);
+				endDate = endDefaultDate.format(dt);
 			}
 
-			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, startDay, endDay);
+			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, startDate, endDate);
 			commit(connection);
 
 			return messages;

@@ -39,10 +39,9 @@ public class LoginFilter implements Filter {
 		} else {
 			errorMessages.add("ログインしてください");
 			session.setAttribute("errorMessages", errorMessages);
-			((HttpServletResponse) response).sendRedirect("http://localhost:8080/SimpleTwitter/login");
+			((HttpServletResponse) response).sendRedirect("./login");
 		}
 
-		System.out.println("EncodingFilter# chain.doFilterが実行されました。");
 	}
 
 	@Override

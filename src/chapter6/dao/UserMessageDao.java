@@ -14,7 +14,7 @@ import chapter6.exception.SQLRuntimeException;
 
 public class UserMessageDao {
 
-	public List<UserMessage> select(Connection connection, Integer idNum, int num, String startDay, String endDay) {
+	public List<UserMessage> select(Connection connection, Integer idNum, int num, String startDate, String endDate) {
 
 		PreparedStatement ps = null;
 		try {
@@ -39,8 +39,8 @@ public class UserMessageDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setString(1, startDay);
-			ps.setString(2, endDay);
+			ps.setString(1, startDate);
+			ps.setString(2, endDate);
 			if (idNum != null) {
 				ps.setInt(3, idNum);
 			}

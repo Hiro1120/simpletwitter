@@ -28,14 +28,14 @@ public class TopServlet extends HttpServlet {
 			isShowMessageForm = true;
 		}
 		String userId = request.getParameter("user_id");
-		String startDay = request.getParameter("start");
-		String endDay = request.getParameter("end");
+		String startDate = request.getParameter("start");
+		String endDate = request.getParameter("end");
 
-		List<UserMessage> messages = new MessageService().select(userId, startDay, endDay);
+		List<UserMessage> messages = new MessageService().select(userId, startDate, endDate);
 		List<Comment> comments = new CommentService().select(userId);
 
-		request.setAttribute("start", startDay);
-		request.setAttribute("end", endDay);
+		request.setAttribute("start", startDate);
+		request.setAttribute("end", endDate);
 		request.setAttribute("comments", comments);
 		request.setAttribute("messages", messages);
 		request.setAttribute("isShowMessageForm", isShowMessageForm);
