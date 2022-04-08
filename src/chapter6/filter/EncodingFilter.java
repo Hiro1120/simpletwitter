@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 @WebFilter("/*")
-public class ServletEncodingFilter implements Filter {
+public class EncodingFilter implements Filter {
 
 	public static String INIT_PARAMETER_NAME_ENCODING = "encoding";
 

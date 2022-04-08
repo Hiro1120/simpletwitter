@@ -38,8 +38,8 @@ public class CommentServlet extends HttpServlet {
 
 		Comment comment = new Comment();
 		comment.setText(text);
-		int replyId = Integer.valueOf(id);
-		comment.setId(replyId);
+		int commentId = Integer.valueOf(id);
+		comment.setId(commentId);
 
 		User user = (User) session.getAttribute("loginUser");
 		comment.setUserId(user.getId());
