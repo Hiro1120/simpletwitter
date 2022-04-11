@@ -1,10 +1,18 @@
 package chapter6.utils;
 
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-import chapter6.exception.SQLRuntimeException;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.xml.FlatDtdDataSet;
+
+import beans.Branch;
 
 public class DBUtil {
 
@@ -14,7 +22,6 @@ public class DBUtil {
 	private static final String PASSWORD = "root";
 
 	static {
-
 		try {
 			Class.forName(DRIVER);
 		} catch (ClassNotFoundException e) {
@@ -22,45 +29,49 @@ public class DBUtil {
 		}
 	}
 
-	/**
-	 * @return
-	 */
-	public static Connection getConnection() {
-
-		try {
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			connection.setAutoCommit(false);
-			return connection;
-		} catch (SQLException e) {
-			throw new SQLRuntimeException(e);
-		}
+	private static Connection getConnection() throws Exception {
+		Class.forName(DRIVER);
+		Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+		return connection;
 	}
 
-	/**
-	 * @param connection
-	 */
-	public static void commit(Connection connection) {
+	public static void main(String[] args) throws Exception {
 
-		try {
-			connection.commit();
-		} catch (SQLException e) {
-			throw new SQLRuntimeException(e);
-		}
+		// データベースに接続する。
+		IDatabaseConnection connection = new DatabaseConnection(getConnection());
+
+		// Dtdファイルを作成する
+		FlatDtdDataSet.write(connection.createDataSet(),
+				new FileOutputStream("test.dtd"));
 	}
 
-	/**
-	 * @param connection
-	 */
-	public static void rollback(Connection connection) {
+	//◇◇DBUnit用追加機能①参照メソッド
+	public static List<Users> allUser() throws Exception {
 
-		if (connection == null) {
-			return;
-		}
+		Connection connection = null;
+		List<Users> usersList = new ArrayList<Users>();
 
 		try {
-			connection.rollback();
-		} catch (SQLException e) {
-			throw new SQLRuntimeException(e);
+			connection = getConnection();
+			String sql = "SELECT * FROM branch ORDER BY branch_code";
+			PreparedStatement ps = connection.prepareStatement(sql);
+
+			ResultSet result = ps.executeQuery();
+
+			while (result.next()) {
+				Branch branch = new Branch();
+				branch.setBranchCode(result.getString("branch_code"));
+				branch.setBranchName(result.getString("branch_name"));
+
+				branchesList.add(branch);
+			}
+
+		} finally {
+			if (connection != null)
+				connection.close();
 		}
+		return branchesList;
+
 	}
+
 }
