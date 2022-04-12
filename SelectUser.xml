@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<dataset>
+
+<users id="2"
+       account="Mario"
+       name="マリオ"
+       email="mario.co.jp"
+       password="mario1"
+       description="事前準備されたマリオです" />
+
+</dataset>

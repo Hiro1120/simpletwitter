@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<dataset>
+
+<messages id="1"
+          user_id="1"
+          text="テスト：テスト投入用です"/>
+
+<users id="1"
+       account="Luigi"
+       name="ルイージ"
+       email="Luigi.co.jp"
+       password="luigi"
+       description="事前準備されたルイージです" />
+
+<users id="2"
+       account="Mario"
+       name="マリオ"
+       email="mario.co.jp"
+       password="mario1"
+       description="事前準備されたマリオです" />
+
+
+</dataset>

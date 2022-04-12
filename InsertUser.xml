@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<dataset>
+
+<users id="3"
+       account="Wario"
+       name="ワリオ"
+       email="Wario.co.jp"
+       password="wario"
+       description="登録されたワリオです" />
+
+</dataset>

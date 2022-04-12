@@ -8,6 +8,7 @@ public class SelectTest implements Serializable {
 	//beans部分
 	private String account;
 	private int user_id;
+	
 	private int id;
 
 	public String getAccount() {
