@@ -1,18 +1,10 @@
 package chapter6.utils;
 
-import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
 
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.dataset.xml.FlatDtdDataSet;
-
-import beans.Branch;
+import chapter6.exception.SQLRuntimeException;
 
 public class DBUtil {
 
@@ -22,6 +14,7 @@ public class DBUtil {
 	private static final String PASSWORD = "root";
 
 	static {
+
 		try {
 			Class.forName(DRIVER);
 		} catch (ClassNotFoundException e) {
@@ -29,49 +22,45 @@ public class DBUtil {
 		}
 	}
 
-	private static Connection getConnection() throws Exception {
-		Class.forName(DRIVER);
-		Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-		return connection;
-	}
-
-	public static void main(String[] args) throws Exception {
-
-		// データベースに接続する。
-		IDatabaseConnection connection = new DatabaseConnection(getConnection());
-
-		// Dtdファイルを作成する
-		FlatDtdDataSet.write(connection.createDataSet(),
-				new FileOutputStream("test.dtd"));
-	}
-
-	//◇◇DBUnit用追加機能①参照メソッド
-	public static List<Users> allUser() throws Exception {
-
-		Connection connection = null;
-		List<Users> usersList = new ArrayList<Users>();
+	/**
+	 * @return
+	 */
+	public static Connection getConnection() {
 
 		try {
-			connection = getConnection();
-			String sql = "SELECT * FROM branch ORDER BY branch_code";
-			PreparedStatement ps = connection.prepareStatement(sql);
-
-			ResultSet result = ps.executeQuery();
-
-			while (result.next()) {
-				Branch branch = new Branch();
-				branch.setBranchCode(result.getString("branch_code"));
-				branch.setBranchName(result.getString("branch_name"));
-
-				branchesList.add(branch);
-			}
-
-		} finally {
-			if (connection != null)
-				connection.close();
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			connection.setAutoCommit(false);
+			return connection;
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
 		}
-		return branchesList;
-
 	}
 
+	/**
+	 * @param connection
+	 */
+	public static void commit(Connection connection) {
+
+		try {
+			connection.commit();
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		}
+	}
+
+	/**
+	 * @param connection
+	 */
+	public static void rollback(Connection connection) {
+
+		if (connection == null) {
+			return;
+		}
+
+		try {
+			connection.rollback();
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		}
+	}
 }
