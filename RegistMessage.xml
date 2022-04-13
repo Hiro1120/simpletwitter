@@ -1,8 +1,10 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <dataset>
 
-<messages id="2"
-          user_id="2"
+<messages  user_id="1"
+          text="テスト：テスト投入用です"/>
+          
+<messages user_id="2"
           text="テスト：新しく登録されたよ"/>
 
 </dataset>

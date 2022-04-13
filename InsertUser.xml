@@ -1,11 +1,22 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <dataset>
 
-<users id="3"
-       account="Wario"
+<users account="Luigi"
+       name="ルイージ"
+       email="Luigi.co.jp"
+       password="luigi"
+       description="事前準備されたルイージです" />
+
+<users account="Mario"
+       name="マリオ"
+       email="mario.co.jp"
+       password="mario1"
+       description="事前準備されたマリオです" />
+
+<users account="Wario"
        name="ワリオ"
        email="Wario.co.jp"
-       password="wario"
+       password="gbXqrS4iV8xC_IKgoDS_rR2_u8zS8mAESxDgIU-l_As"
        description="登録されたワリオです" />
 
 </dataset>

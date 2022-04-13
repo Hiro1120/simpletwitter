@@ -1,11 +1,17 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <dataset>
-
 <users id="2"
        account="Mario"
        name="マリオ"
        email="mario.co.jp"
        password="mario1"
        description="事前準備されたマリオです" />
+<users id="1"
+       account="Luigi"
+       name="ルイージ"
+       email="Luigi.co.jp"
+       password="LrcF6JvkAQapNAfXySSve3EBfBUx3ppsqGaP_D-Ew5w"
+       description="事前準備されたルイージです" />
+       
 
 </dataset>

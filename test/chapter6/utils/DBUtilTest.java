@@ -11,6 +11,7 @@ import org.dbunit.Assertion;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
+import org.dbunit.dataset.CompositeTable;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
@@ -29,7 +30,7 @@ import junit.framework.TestCase;
 public class DBUtilTest extends TestCase {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	private static final String URL = "jdbc:mysql://localhost/test";
+	private static final String URL = "jdbc:mysql://localhost/simple_twitter";
 	private static final String USER = "root";
 	private static final String PASSWORD = "root";
 
@@ -73,7 +74,7 @@ public class DBUtilTest extends TestCase {
 					new FileOutputStream(file));
 
 			//(3)テストデータを投入する
-			IDataSet dataSetUsers = new FlatXmlDataSet(new File("test.ver.xml"));
+			IDataSet dataSetUsers = new FlatXmlDataSet(new File("testver.xml"));
 			DatabaseOperation.CLEAN_INSERT.execute(connection, dataSetUsers);
 
 		} catch (Exception e) {
@@ -119,15 +120,13 @@ public class DBUtilTest extends TestCase {
 
 	@Test
 	//つぶやきの登録メソッドのテスト①(任意のメッセージを登録)
-	public void registMessage() throws Exception {
+	public void testRegistMessage() throws Exception {
 
 		//テスト対象となる、storeメソッドを実行
 		//テストのインスタンスを生成
 		Message result001 = new Message();
-		result001.setId(2);
 		result001.setUserId(2);
 		result001.setText("テスト：新しく登録されたよ");
-
 		new MessageService().insert(result001);
 
 		//テスト結果として期待されるべきテーブルデータを表すITableインスタンスを取得
@@ -146,7 +145,8 @@ public class DBUtilTest extends TestCase {
 			ITable expectedTable = expectedDataSet.getTable("messages");
 
 			//期待されるITableと実際のITableの比較
-			Assertion.assertEquals(expectedTable, actualTable);
+			Assertion.assertEquals(expectedTable, new CompositeTable(expectedTable.getTableMetaData(), actualTable));
+
 		} finally {
 			if (connection != null)
 				connection.close();
@@ -154,29 +154,28 @@ public class DBUtilTest extends TestCase {
 
 	}
 
-	public void selectMessage() throws Exception {
-		//ユーザーごとのつぶやきの参照メソッドのテスト②（存在するユーザーIDで紐づくメッセージを取得）
-		List<UserMessage> selectMessageList = new MessageService().select("1", "2022-01-01", "2022-04-01");
+	//ユーザーごとのつぶやきの参照メソッドのテスト②（存在するユーザーIDで紐づくメッセージを取得）
+	public void testSelectMessage() throws Exception {
+
+		List<UserMessage> selectMessageList = new MessageService().select("1", "2022-01-01", "2023-01-01");
 		//値の検証
 		//件数
-		assertEquals(2, selectMessageList.size());
+		assertEquals(1, selectMessageList.size());
 		//データ
 		UserMessage result001 = selectMessageList.get(0);
-		assertEquals("id=1", "id=" + result001.getId());
-		assertEquals("text=テスト：３回目の投稿です", "text=" + result001.getText());
+		assertEquals("text=テスト：テスト投入用です", "text=" + result001.getText());
 	}
 
 	//ユーザーの登録メソッドのテスト③
-	public void registUser() throws Exception {
+	public void testRegistUser() throws Exception {
 
 		//テスト対象となる、storeメソッドを実行
 		//テストのインスタンスを生成
 		User result001 = new User();
-		result001.setId(3);
 		result001.setAccount("Wario");
 		result001.setName("ワリオ");
 		result001.setEmail("Wario.co.jp");
-		result001.setPassword("wario");
+		result001.setPassword("Wario");
 		result001.setDescription("登録されたワリオです");
 
 		new UserService().insert(result001);
@@ -196,8 +195,10 @@ public class DBUtilTest extends TestCase {
 			IDataSet expectedDataSet = new FlatXmlDataSet(new File("InsertUser.xml"));
 			ITable expectedTable = expectedDataSet.getTable("users");
 
+			Assertion.assertEquals(expectedTable, new CompositeTable(expectedTable.getTableMetaData(), actualTable));
+
 			//期待されるITableと実際のITableの比較
-			Assertion.assertEquals(expectedTable, actualTable);
+			//			Assertion.assertEquals(expectedTable, actualTable);
 		} finally {
 			if (connection != null)
 				connection.close();
@@ -207,13 +208,13 @@ public class DBUtilTest extends TestCase {
 
 	//ユーザーの更新メソッドのテスト④
 	@Test
-	public void UpdataUser() throws Exception {
+	public void testUpdataUser() throws Exception {
 
 		//テスト対象となる、storeメソッドを実行
 		//テストのインスタンスを生成
 		User result001 = new User();
 		result001.setId(1);
-		result001.setAccount("New Luigi");
+		result001.setAccount("New_Luigi");
 		result001.setName("ニュー ルイージ");
 		result001.setEmail("New_Luigi.co.jp");
 		result001.setPassword("newluigi");
@@ -230,14 +231,15 @@ public class DBUtilTest extends TestCase {
 
 			//メソッド実行した実際のテーブル
 			IDataSet databaseDataSet = connection.createDataSet();
-			ITable actualTable = databaseDataSet.getTable("users, messages");
+			ITable actualTable = databaseDataSet.getTable("users");
 
 			// テスト結果として期待されるべきテーブルデータを表すITableインスタンスを取得
 			IDataSet expectedDataSet = new FlatXmlDataSet(new File("UpdataUser.xml"));
 			ITable expectedTable = expectedDataSet.getTable("users");
 
 			//期待されるITableと実際のITableの比較
-			Assertion.assertEquals(expectedTable, actualTable);
+			Assertion.assertEquals(expectedTable, new CompositeTable(expectedTable.getTableMetaData(), actualTable));
+
 		} finally {
 			if (connection != null)
 				connection.close();
@@ -246,38 +248,18 @@ public class DBUtilTest extends TestCase {
 	}
 
 	//存在するアカウントで紐づくユーザーの取得メソッドのテスト⑤
-	public void selectUser() throws Exception {
+	public void testSelectUser() throws Exception {
 
-		User result001 = new User();
-		result001.setId(2);
-		result001.setAccount("Mario");
-		result001.setName("マリオ");
-		result001.setEmail("mario.co.jp");
-		result001.setPassword("mario1");
-		result001.setDescription("全準備されたマリオです");
-
-		new UserService().select(result001.getAccount());
-
-		//テスト結果として期待されるべきテーブルデータを表すITableインスタンスを取得
-		IDatabaseConnection connection = null;
-		try {
-
-			Connection conn = getConnection();
-			connection = new DatabaseConnection(conn);
-
-			//メソッド実行した実際のテーブル
-			IDataSet databaseDataSet = connection.createDataSet();
-			ITable actualTable = databaseDataSet.getTable("users");
-
-			// テスト結果として期待されるべきテーブルデータを表すITableインスタンスを取得
-			IDataSet expectedDataSet = new FlatXmlDataSet(new File("SelectUser.xml"));
-			ITable expectedTable = expectedDataSet.getTable("users");
-
-			//期待されるITableと実際のITableの比較
-			Assertion.assertEquals(expectedTable, actualTable);
-		} finally {
-			if (connection != null)
-				connection.close();
-		}
+		User selectUser = new UserService().select("Mario");
+		//値の検証
+		//データ
+		User result001 = selectUser;
+		assertEquals("id=2", "id=" + result001.getId());
+		assertEquals("account=Mario", "account=" + result001.getAccount());
+		assertEquals("name=マリオ", "name=" + result001.getName());
+		assertEquals("email=mario.co.jp", "email=" + result001.getEmail());
+		assertEquals("password=mario1", "password=" + result001.getPassword());
+		assertEquals("description=事前準備されたマリオです", "description=" + result001.getDescription());
 	}
+
 }
