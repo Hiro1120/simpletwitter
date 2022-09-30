@@ -26,6 +26,7 @@
 			        <a href="logout">ログアウト</a>
 			    </c:if>
             </div>
+			
                   <c:if test="${ not empty loginUser }">
 			    <div class="profile">
 			        <div class="name"><h2><c:out value="${loginUser.name}" /></h2></div>
