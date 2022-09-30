@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class SelectTest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	
 	//beans部分
 	private String account;
 	private int user_id;

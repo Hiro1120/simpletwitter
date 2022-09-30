@@ -12,6 +12,7 @@ public class CipherUtil {
 	 *
 	 * @return
 	 */
+	
 	public static String encrypt(String target) {
 
 		try {

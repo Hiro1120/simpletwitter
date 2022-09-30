@@ -12,6 +12,7 @@ import java.util.List;
 import chapter6.beans.UserMessage;
 import chapter6.exception.SQLRuntimeException;
 
+
 public class UserMessageDao {
 
 	public List<UserMessage> select(Connection connection, Integer idNum, int num, String startDate, String endDate) {

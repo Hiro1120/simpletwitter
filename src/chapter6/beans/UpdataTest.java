@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class UpdataTest implements Serializable {
 
+	
 	private String account;
 	private String name;
 	private String email;

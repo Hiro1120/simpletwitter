@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Comment implements Serializable {
 
+	
 	private int id;
 	private int userId;
 	private String text;

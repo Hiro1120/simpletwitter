@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class User implements Serializable {
 
+	
 	private int id;
 	private String account;
 	private String name;

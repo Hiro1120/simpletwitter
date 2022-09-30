@@ -12,6 +12,7 @@ import java.util.List;
 import chapter6.beans.UserComment;
 import chapter6.exception.SQLRuntimeException;
 
+
 public class UserCommentDao {
 
 	public List<UserComment> select(Connection connection, int num) {

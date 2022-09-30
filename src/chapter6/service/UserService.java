@@ -11,6 +11,7 @@ import chapter6.beans.User;
 import chapter6.dao.UserDao;
 import chapter6.utils.CipherUtil;
 
+
 public class UserService {
 
 	public void insert(User user) {

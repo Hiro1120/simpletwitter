@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Message implements Serializable {
 
+	
 	private int id;
 	private int userId;
 	private String text;

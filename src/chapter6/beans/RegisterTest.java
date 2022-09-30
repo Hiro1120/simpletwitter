@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class RegisterTest implements Serializable {
 
+	
 	private String account;
 	private String name;
 	private String email;

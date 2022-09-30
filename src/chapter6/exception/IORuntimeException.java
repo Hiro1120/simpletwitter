@@ -7,6 +7,7 @@ public class IORuntimeException extends RuntimeException {
 
 	public IORuntimeException(IOException cause) {
 		super(cause);
+		
 	}
 
 }

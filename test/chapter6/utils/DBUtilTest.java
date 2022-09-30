@@ -27,6 +27,7 @@ import chapter6.service.MessageService;
 import chapter6.service.UserService;
 import junit.framework.TestCase;
 
+
 public class DBUtilTest extends TestCase {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";

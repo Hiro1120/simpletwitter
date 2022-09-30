@@ -10,6 +10,7 @@ import java.sql.Statement;
 import chapter6.exception.IORuntimeException;
 import chapter6.exception.SQLRuntimeException;
 
+
 public class CloseableUtil {
 
 	public static void close(Closeable closeable) {

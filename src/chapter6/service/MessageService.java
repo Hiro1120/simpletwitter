@@ -15,6 +15,7 @@ import chapter6.beans.UserMessage;
 import chapter6.dao.MessageDao;
 import chapter6.dao.UserMessageDao;
 
+
 public class MessageService {
 
 	public void insert(Message message) {

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import chapter6.exception.SQLRuntimeException;
 
+
 public class DBUtil {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";

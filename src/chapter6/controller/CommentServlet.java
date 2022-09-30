@@ -47,6 +47,7 @@ public class CommentServlet extends HttpServlet {
 		new CommentService().insert(comment);
 
 		response.sendRedirect("./");
+		
 	}
 
 	private boolean isValid(String text, List<String> errorMessages) {

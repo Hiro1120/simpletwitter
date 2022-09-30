@@ -11,6 +11,7 @@ import chapter6.beans.UserComment;
 import chapter6.dao.CommentDao;
 import chapter6.dao.UserCommentDao;
 
+
 public class CommentService {
 
 	public void insert(Comment comment) {

@@ -15,6 +15,7 @@ import chapter6.beans.User;
 import chapter6.exception.NoRowsUpdatedRuntimeException;
 import chapter6.exception.SQLRuntimeException;
 
+
 public class UserDao {
 
 	public void insert(Connection connection, User user) {

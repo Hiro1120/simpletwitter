@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import chapter6.beans.Comment;
 import chapter6.exception.SQLRuntimeException;
 
+
 public class CommentDao {
 
 	public void insert(Connection connection, Comment comment) {

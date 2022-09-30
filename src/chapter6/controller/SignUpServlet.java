@@ -86,6 +86,8 @@ public class SignUpServlet extends HttpServlet {
 		if (errorMessages.size() != 0) {
 			return false;
 		}
+
 		return true;
+		
 	}
 }

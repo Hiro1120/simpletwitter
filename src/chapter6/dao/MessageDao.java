@@ -12,6 +12,7 @@ import java.util.List;
 import chapter6.beans.Message;
 import chapter6.exception.SQLRuntimeException;
 
+
 public class MessageDao {
 
 	public void insert(Connection connection, Message message) {
